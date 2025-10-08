@@ -1,0 +1,357 @@
+/* =========================
+   Style global
+========================= */
+* {
+    user-select: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    height: 100%;
+    width: 100%;
+    background: black;
+   font-family:  "Playfair Display", serif;
+    overflow: hidden;
+  }
+  
+  canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+  
+  /* =========================
+     Titre
+  ========================= */
+  #salut {
+    position: absolute;
+    top: 35%;
+    left: 52%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 40px;
+    z-index: 5;
+    font-family:  "Playfair Display", serif;
+  }
+  
+  /* =========================
+     Boutons menu
+  ========================= */
+
+  .round-links {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    font-family:  "Playfair Display", serif;
+  }
+/* Hover rapide sans latence */
+.round-links a {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: rgba(255, 0, 0, 0);
+    color: red;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 5px;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-family:  "Playfair Display", serif;
+  
+    /* transitions séparées */
+    transition: background-color 0.2s, color 0.2s, transform 0.2s;
+  }
+  
+  /* État initial = cachés superposés au menu */
+  .round-links a:not(.menu) {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.5);
+    pointer-events: none;
+    transition-property: opacity, transform; /* animation apparition */
+    transition-duration: 0.5s;
+  }
+  
+  /* Quand menu ouvert -> boutons activés */
+  .round-links.open a:not(.menu) {
+    pointer-events: auto;
+  }
+  
+  /* Animation horizontale avec cascade pour apparition */
+  .round-links.open a:nth-child(1) { transform: translate(-240px,0) scale(1); opacity:1; transition-delay:0.1s; }
+  .round-links.open a:nth-child(2) { transform: translate(-120px,0) scale(1); opacity:1; transition-delay:0.2s; }
+  .round-links.open a:nth-child(4) { transform: translate(120px,0) scale(1); opacity:1; transition-delay:0.3s; }
+  .round-links.open a:nth-child(5) { transform: translate(240px,0) scale(1); opacity:1; transition-delay:0.4s; }
+  
+  /* Menu reste au centre */
+  .menu { z-index: 20; }
+  
+  /* Hover rapide sans delay */
+  .round-links a:hover {
+    background-color: rgba(255, 0, 0, 0);
+    color: #000;
+    transform: scale(1.1);
+    transition-delay: 0s;
+   font-family:  "Playfair Display", serif; /* important pour que hover soit instantané */
+  }
+  /* Responsive pour écrans ≤ 600px */
+@media screen and (max-width: 600px) {
+
+
+    /* Conteneur menu */
+    .round-links {
+      position: relative;   /* pour positionner les boutons absolument par rapport au menu */
+      width: 100%;
+      height: 100%;        /* hauteur suffisante pour les deux lignes */
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  
+    /* Tous les boutons sauf menu cachés au départ */
+    .round-links a:not(.menu) {
+      opacity: 0;
+      transform: scale(0.5);
+      pointer-events: none;
+      transition: opacity 0.5s, transform 0.5s;
+    }
+  
+    /* Boutons quand menu ouvert */
+    .round-links.open a:not(.menu) {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+    }
+  
+    /* Positionnement exact des boutons */
+  
+    /* Ligne 1 */
+    .round-links.open a:nth-child(2) { /* CV */
+      position: absolute;
+      top: 40px;
+      left: 20%;
+    }
+  
+    .round-links.open a:nth-child(4) { /* Projet */
+      position: absolute;
+      top: 40px;
+      left: 65%;
+    }
+  
+    /* Ligne 2 */
+    .round-links.open a:nth-child(1) { /* Stage */
+      position: absolute;
+      top: 130px;
+      left: 20%;
+    }
+  
+    .round-links.open a:nth-child(5) { /* Veille */
+      position: absolute;
+      top: 130px;
+      left: 65%;
+    }
+  
+    /* Menu reste centré */
+    .round-links a.menu {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+    }
+
+  
+    #salut {
+        font-size: 30px;        /* réduire un peu la taille si nécessaire */
+        white-space: nowrap;     /* empêche le retour à la ligne */
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+      }
+  }
+
+  button {
+    position: relative;
+    padding: 12px 35px;
+    background: black;
+    font-size: 17px;
+    font-weight: 500;
+    color: white;
+    border: 3px solid white;
+    border-radius: 150px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    font-family:  "Playfair Display";
+    /* enlève le soulignement du lien */
+  }
+ 
+  .star-1 {
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    width: 25px;
+    height: auto;
+    filter: drop-shadow(0 0 0 blue);
+    z-index: -5;
+    transition: all 1s cubic-bezier(0.05, 0.83, 0.43, 0.96);
+  }
+  
+  .star-2 {
+    position: absolute;
+    top: 45%;
+    left: 45%;
+    width: 15px;
+    height: auto;
+    filter: drop-shadow(0 0 0 blue);
+    z-index: -5;
+    transition: all 1s cubic-bezier(0, 0.4, 0, 1.01);
+  }
+  
+  .star-3 {
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    width: 5px;
+    height: auto;
+    filter: drop-shadow(0 0 0 blue);
+    z-index: -5;
+    transition: all 1s cubic-bezier(0, 0.4, 0, 1.01);
+  }
+  
+  .star-4 {
+    position: absolute;
+    top: 20%;
+    left: 40%;
+    width: 8px;
+    height: auto;
+    filter: drop-shadow(0 0 0 blue);
+    z-index: -5;
+    transition: all 0.8s cubic-bezier(0, 0.4, 0, 1.01);
+  }
+  
+  .star-5 {
+    position: absolute;
+    top: 25%;
+    left: 45%;
+    width: 15px;
+    height: auto;
+    filter: drop-shadow(0 0 0 blue);
+    z-index: -5;
+    transition: all 0.6s cubic-bezier(0, 0.4, 0, 1.01);
+  }
+  
+  .star-6 {
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    width: 5px;
+    height: auto;
+    filter: drop-shadow(0 0 0 blue);
+    z-index: -5;
+    transition: all 0.8s ease;
+  }
+  
+  button:hover {
+    background: transparent;
+    color: white;
+    box-shadow: 0 0 25px white;
+  }
+  
+  button:hover .star-1 {
+    position: absolute;
+    top: -80%;
+    left: -30%;
+    width: 25px;
+    height: auto;
+    filter: drop-shadow(0 0 10px green);
+    z-index: 2;
+  }
+  
+  button:hover .star-2 {
+    position: absolute;
+    top: -25%;
+    left: 10%;
+    width: 15px;
+    height: auto;
+    filter: drop-shadow(0 0 10px green);
+    z-index: 2;
+  }
+  
+  button:hover .star-3 {
+    position: absolute;
+    top: 55%;
+    left: 25%;
+    width: 5px;
+    height: auto;
+    filter: drop-shadow(0 0 10px green);
+    z-index: 2;
+  }
+  
+  button:hover .star-4 {
+    position: absolute;
+    top: 30%;
+    left: 80%;
+    width: 8px;
+    height: auto;
+    filter: drop-shadow(0 0 10px green);
+    z-index: 2;
+  }
+  
+  button:hover .star-5 {
+    position: absolute;
+    top: 25%;
+    left: 115%;
+    width: 15px;
+    height: auto;
+    filter: drop-shadow(0 0 10px green);
+    z-index: 2;
+  }
+  
+  button:hover .star-6 {
+    position: absolute;
+    top: 5%;
+    left: 60%;
+    width: 5px;
+    height: auto;
+    filter: drop-shadow(0 0 10px green);
+    z-index: 2;
+  }
+  
+  .fil0 {
+    fill: #fffdef;
+  }
+  .img-link img {
+    position: absolute;
+    top: 5%;
+    left: 10%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    z-index: 30;
+  }
+  
+  .img-link img:hover {
+    transform: translateX(-50%) scale(1.1);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.7);
+  }
+  @media screen and (max-width: 600px) {
+    .img-link img {
+      width: 80px; /* plus petit sur mobile */
+    }
+  }
+  
